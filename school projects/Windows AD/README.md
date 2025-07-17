@@ -15,8 +15,9 @@ winrm quickconfig -q
 winrm set winrm/config/service '@{AllowUnencrypted="true"}'
 winrm set winrm/config/service/auth '@{Basic="true"}'
 winrm delete winrm/config/Listener?Address=*+Transport=HTTP
-winrm create winrm/config/Listener?Address=IP:10.10.10.4+Transport=HTTP
-winrm enumerate winrm/config/listener
+winrm create winrm/config/Listener?Address=IP:10.10.10.45+Transport=HTTP
+Set-NetFirewallRule -DisplayName 'Windows Remote Management (HTTP-In)' -RemoteAddress 10.10.10.4
+winrm enumerate winrm/config/listene
 ```
 For a little bit of information i only want my server to be able to communicate with the ansible server which has the IP of 10.10.10.4 so i added a firewall rule to only allo winrm connection attemps from 10.10.10.4. also the listener address is 10.10.10.45 because that is the iIP of my windows server. The last command is to make sure all the previous commands worked. 
 
