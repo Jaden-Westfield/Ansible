@@ -1,0 +1,26 @@
+---
+- hosts: winservers
+  become_method: runas
+  tasks:
+    - name: Ensure folder exists
+      win_file:
+        path: C:\Users\ansible\Documents
+        state: directory
+
+    - name: create a file
+      win_file:
+        path: C:\Users\ansible\Documents\jaden.txt
+        state: touch
+
+    - name: file creation verification
+      win_file:
+        path: C:\Users\ansible\Documents\jaden.txt
+        state: file
+
+    - name: Write text in file
+      ansible.windows.win_copy:
+        dest: C:\Users\ansible\Documents\jaden.txt
+        content: |
+          This is a test
+          i can write on multiple different lines.
+

@@ -1,0 +1,14 @@
+---
+- hosts: winservers
+  become_method: runas
+  tasks:
+    - name: Install dhcp
+      win_feature:
+        name:
+          - DHCP
+        state: present
+        include_management_tools: yes
+
+    - name: Reboot Windows server after installing DHCP
+      ansible.windows.win_reboot:
+        reboot_timeout: 300
